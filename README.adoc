@@ -1,1 +1,58 @@
-= Pure Flash Storage Ansible Module 
+:icons:
+:imagesdir: images
+:icons: font
+
+=== Pure Flash Storage Ansible Module
+
+IMPORTANT: This playbook downloads the latest repo from purestorage GITHUB! +
+
+{nbsp} +
+
+image::home1.png[width=50,height=50,Home Page Pure GitHub]
+https://github.com/purestorage/rest-client
+
+{nbsp} +
+
+=== Two roles:
+
+* Pure for controllers
+
+	** This role sets all the variable for the controllers
+	** It get the driver from GITHUB and installs it
+	** You need to make sure you have already created the Project PURE
+    on your OOO.
+
+* Pure for computes
+
+	** This role sets the two variables for the compute
+	** libvirt
+	** nova
+
+{nbsp} +
+
+
+=== Requirments
+image::deliver.png[width=50,height=50,Requirements]
+Crudini, make sure your Overcloud does have the DELOREAN-DEPS repos to install openstack-config
+tools in order to restart the nova services.
+
+NOTE: About image caching you need to make sure to create the user / project before running the playbook.
+The ID of the project id as well as user id will be asked as you launch the playbook.
+
+
+{nbsp} +
+
+=== Services
+After the cinder changes in the controllers the PCS needs to restart the Services
+
+-- *PCS restart  using the playbook*
+
+      ansible-playbook -i hosts pure-cinder-pcs.yaml
+
+
+=== License
+Apache 2.0
+
+
+==== Author Information
+    Remo Mattei

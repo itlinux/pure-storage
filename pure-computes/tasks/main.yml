@@ -1,0 +1,13 @@
+
+---
+  - name: Setting Pure for Compute Nodes libvirt
+    command: crudini --set /etc/nova/nova.conf libvirt {{ item }}
+    with_items:
+      - volume_use_multipath true
+    tags: computes
+  - name: Setting Pure for Compute Nodes Defaults
+    command: crudini --set /etc/nova/nova.conf DEFAULT {{ item }}
+    with_items:
+      - use_multipath_for_image_xfer true
+    tags: computes
+

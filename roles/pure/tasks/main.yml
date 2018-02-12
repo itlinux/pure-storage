@@ -1,0 +1,42 @@
+---
+  - name: Pure-Driver Download
+    git:
+     repo: 'https://github.com/purestorage/rest-client.git'
+     dest: /root/pure-rest-client
+    tags: controllers
+
+  - name: install pure-client
+    args:
+      chdir: /root/pure-rest-client/
+    command: python setup.py install
+    register: pure_setup
+    tags: controllers
+
+  - name:  Pure Setup Output
+    debug:
+      var: pure_setup.stdout
+    tags: controllers
+
+  - name: Check pure settings Default section
+    command: crudini --set /etc/cinder/cinder.conf DEFAULT {{ item }}
+    with_items:
+      - Debug  True
+      - Verbose True
+      - enabled_backends pure-iscsi
+      - default_volume_type pure
+      - cinder_internal_tenant_project_id  "{{ ID }}"
+      - cinder_internal_tenant_user_id "{{ tenant }}"
+      - image_volume_cache_max_size_gb 200
+      - image_volume_cache_max_count  50
+      - pure_eradicate_on_delete True
+    tags: controllers
+  - name: Check pure settings pure-iscsi section
+    command: crudini --set /etc/cinder/cinder.conf pure-iscsi {{ item }}
+    with_items:
+      - volume_backend_name pure-iscsi
+      - volume_driver cinder.volume.drivers.pure.PureISCSIDriver
+      - pure-iscsi "{{ IP_ADDRESS }}"
+      - pure_api_token  "{{ PURE_TOKEN }}"
+      - use_multipath_for_image_xfer True
+    tags: controllers
+

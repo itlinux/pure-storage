@@ -1,0 +1,24 @@
+- hosts: vm
+  gather_facts: no  
+  become: yes
+  remote_user: vagrant
+  roles:
+    - pure
+  vars_prompt:
+   - name: ID
+     prompt: ID "cinder Project ID  (enter to continue)"
+     private: no
+
+   - name: tenant
+     prompt: tenant "cinder Tenant User ID (enter to continue)"
+     private: no
+    
+
+#- hosts: compute
+#  gather_facts: no  
+#  remote_user: vagrant
+#  roles:
+#    - pure-computes
+
+
+   
