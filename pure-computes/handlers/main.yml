@@ -1,4 +1,0 @@
----
-- name: Restart OpenStack services
-  become: yes
-  command: openstack-service restart
