@@ -4,7 +4,4 @@
   remote_user: vagrant
   tasks:
    - name: Restart PCS Cinder services
-     become: yes
      command: pcs resource restart openstack-cinder-volume
-     tags: pcs
-
