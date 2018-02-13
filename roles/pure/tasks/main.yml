@@ -3,19 +3,16 @@
     git:
      repo: 'https://github.com/purestorage/rest-client.git'
      dest: /root/pure-rest-client
-    tags: controllers
 
   - name: install pure-client
     args:
       chdir: /root/pure-rest-client/
     command: python setup.py install
     register: pure_setup
-    tags: controllers
 
   - name:  Pure Setup Output
     debug:
       var: pure_setup.stdout
-    tags: controllers
 
   - name: Check pure settings Default section
     command: crudini --set /etc/cinder/cinder.conf DEFAULT {{ item }}
@@ -29,7 +26,6 @@
       - image_volume_cache_max_size_gb 200
       - image_volume_cache_max_count  50
       - pure_eradicate_on_delete True
-    tags: controllers
   - name: Check pure settings pure-iscsi section
     command: crudini --set /etc/cinder/cinder.conf pure-iscsi {{ item }}
     with_items:
@@ -38,5 +34,4 @@
       - pure-iscsi "{{ IP_ADDRESS }}"
       - pure_api_token  "{{ PURE_TOKEN }}"
       - use_multipath_for_image_xfer True
-    tags: controllers
 

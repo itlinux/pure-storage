@@ -12,13 +12,3 @@
    - name: tenant
      prompt: tenant "cinder Tenant User ID (enter to continue)"
      private: no
-    
-
-#- hosts: compute
-#  gather_facts: no  
-#  remote_user: vagrant
-#  roles:
-#    - pure-computes
-
-
-   
